@@ -10,4 +10,13 @@ class Project
         ProjectBacker.new(self, backer)
     end
 
+    def backers
+        projects = ProjectBacker.all.select do |projects|
+            projects.project == self
+        end
+        projects.collect do |projects|
+            projects.backer
+        end
+    end
+
 end

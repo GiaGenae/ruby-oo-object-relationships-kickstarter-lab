@@ -1,11 +1,10 @@
 require 'pry'
 
 class Backer
-    attr_reader :name, :backed_projects
+    attr_reader :name
 
     def initialize(name)
         @name = name
-        @backed_projects = []
     end
 
     def back_project(project)
@@ -13,8 +12,11 @@ class Backer
     end
 
     def backed_projects
-        back_project.collect do |project|
-            backer.project
+        project_backers = ProjectBacker.all.select do |project_backer|
+            project_backer.backer == self
+        end
+        project_backers.collect do |project_backer|
+            project_backer.project
         end
     end
 end
